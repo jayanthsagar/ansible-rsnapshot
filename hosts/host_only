@@ -1,0 +1,16 @@
+[nagios_server]
+#multiple-ok
+#10.4.15.207
+10.4.15.114
+
+[nagios_client]
+10.4.15.116
+10.4.15.117
+
+[rsnapshot_server]
+10.4.15.119
+
+[rsnapshot_client]
+#10.4.15.114
+#10.4.15.116
+10.4.15.117

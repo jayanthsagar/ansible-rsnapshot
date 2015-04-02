@@ -1,0 +1,58 @@
+---
+rsnapshot_ssh_key: id_rsa
+
+rsnapshot_config_backup:
+    - name: LOCALHOST
+      points:
+          - [backup_script, /bin/date "+ backup of localhost started at %c" > start.txt, localhost/localhost_start]
+          - [backup, /home/, localhost/]
+          - [backup, /etc/, localhost/]
+          - [backup, /usr/local/, localhost/]
+          - [backup_script, /bin/date "+ backup of localhost completed at %c" > end.txt, localhost/localhost_end]
+
+    - name: nagios.vlabs.ac.in
+      points:
+          - [backup_script, /bin/date "+ backup of nagios started at %c" > start.txt, nagios/nagios_start]
+          - [backup, "root@nagios.vlabs.ac.in:/home/", nagios/]
+          - [backup, "root@nagios.vlabs.ac.in:/etc/", nagios/]
+          - [backup, "root@nagios.vlabs.ac.in:/usr/local/", nagios/]
+          - [backup_script, /bin/date "+ backup of nagios completed at %c" > end.txt, nagios/nagios_end]
+
+    - name: ansible.vlabs.ac.in
+      points:
+          - [backup_script, /bin/date "+ backup of ansible started at %c" > start.txt, ansible/ansible_start]
+          - [backup, "root@ansible.vlabs.ac.in:/home/", nagios/]
+          - [backup, "root@ansible.vlabs.ac.in:/etc/", nagios/]
+          - [backup, "root@ansible.vlabs.ac.in:/usr/local/", nagios/]
+          - [backup_script, /bin/date "+ backup of ansible completed at %c" > end.txt, ansible/ansible_end]
+
+
+rsnapshot_crontab:
+     - name: hourly
+       month: '*'
+       weekday: '*'
+       day: '*'
+       hour: 4
+       minute: 0
+       job: "/usr/bin/rsnapshot hourly"
+     - name: daily
+       month: '*'
+       weekday: '*'
+       day: '*'
+       hour: 3
+       minute: 30
+       job: "/usr/bin/rsnapshot daily"
+     - name: weekly
+       month: '*'
+       weekday: 1
+       day: '*'
+       hour: 3
+       minute: 0
+       job: "/usr/bin/rsnapshot weekly"
+     - name: monthly
+       month: '*'
+       weekday: '*'
+       day: 1
+       hour: 2
+       minute: 30
+       job: "/usr/bin/rsnapshot monthly"

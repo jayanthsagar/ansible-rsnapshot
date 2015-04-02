@@ -1,0 +1,11 @@
+- name: updating packages
+  yum: name=* state=latest
+  environment: proxy_env 
+
+- name: Installing rsync
+  yum: name=rsync state=installed
+  environment: proxy_env
+
+- name: copying public key of rsnapshot-server to authorized_keys of client
+  shell: echo {{ rsnaphot_server_pub_key }} >> /root/.ssh/authorized_keys
+  

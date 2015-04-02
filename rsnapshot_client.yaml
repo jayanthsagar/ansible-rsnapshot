@@ -1,0 +1,8 @@
+---
+- name: This yml script configures rsnapshot server
+  hosts: rsnapshot_client
+  remote_user: root
+
+  roles:
+    - common
+    - rsnapshot_client
